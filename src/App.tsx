@@ -42,7 +42,7 @@ function App() {
 		completedTodoStyles
 	} = useStyles();
 	const [todoText, setTodoText] = useState("");
-	const {addTodo, removeTodo, toggleCompletedState, todos} =  useStore();
+	const store = useStore();
 
 	return (
 		<Container maxWidth="xs">
@@ -67,7 +67,7 @@ function App() {
 				{
 					if (todoText.length)
 					{
-						addTodo(todoText);
+						store.addTodo(todoText);
 						setTodoText("");
 					}
 				}}
@@ -75,13 +75,13 @@ function App() {
 				Add item
 			</Button>
 			<List>
-				{todos.map((todo) => (
+				{store.todos.map((todo) => (
 					<ListItem key={todo.id}>
 						<ListItemIcon>
 							<Checkbox
 								edge="start"
 								checked={todo.completed}
-								onChange={() => toggleCompletedState(todo.id)}
+								onChange={() => store.toggleCompletedState(todo.id)}
 							/>
 						</ListItemIcon>
 						<ListItemText
@@ -94,7 +94,7 @@ function App() {
 							<IconButton
 								onClick = {() =>
 								{
-									removeTodo(todo.id);
+									store.removeTodo(todo.id);
 								}}
 							>
 								<DeleteIcon />
